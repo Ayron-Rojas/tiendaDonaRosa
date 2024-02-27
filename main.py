@@ -3,6 +3,7 @@ import Funciones.funcionAgregar as Agregar
 import Funciones.help as Ayuda
 import Funciones.listar as Listar
 import Funciones.Editar as Editar
+import Funciones.eliminar as Eliminar
 import Actividades.verificarCantidades as VerificarCantidades
 import Actividades.obtenerCHAT_ID as CHAT_ID
 import time
@@ -33,11 +34,11 @@ def mostrar(mensaje):
     
 @bot.message_handler(commands= ["editar"])    
 def editar(mensaje):
-    Editar.editarProducto(bot, articulosTienda, mensaje)
+    Editar.editarArticulo(bot, articulosTienda, mensaje)
     
 @bot.message_handler(commands= ["eliminar"])    
 def editar(mensaje):
-    (bot, articulosTienda, mensaje)   
+    Eliminar.eliminarArticulo(bot, articulosTienda, mensaje)
     
 @bot.message_handler(commands=["verificar_cantidades"])
 def ejecutarActividadVerificarCantidades(mensaje):
