@@ -1,6 +1,7 @@
 import telebot
 import Funciones.funcionAgregar as funcionAgregar
 import Funciones.help as helper
+import Funciones.listar as Listar
 
 TOKEN = "6826256087:AAHsXEr_yWAnZBjKNMTgvBZJ56_Hz5KExS8"
 
@@ -18,9 +19,13 @@ def helpe(mensaje):
    
 articulosTienda = {} # Aqui almacenaremos los datos esta vacia para poder llenarla
 
-# Almacenamos los datos de las frutas y verduras en el diccionario de arriba
-@bot.message_handler(commands= ["Agregar"])
+@bot.message_handler(commands= ["ver"])
 def agregar(mensaje):
+    Listar.listarProductos(bot, mensaje, articulosTienda)
+
+# Almacenamos los datos de las frutas y verduras en el diccionario de arriba
+@bot.message_handler(commands= ["agregar"])
+def mostrar(mensaje):
     funcionAgregar.agregarArticulo(bot, articulosTienda, mensaje)
     
     
