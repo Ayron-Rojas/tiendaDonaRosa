@@ -1,28 +1,41 @@
 import telebot
 import Funciones.funcionAgregar as funcionAgregar
+import Funciones.help as helper
 
 TOKEN = "6826256087:AAHsXEr_yWAnZBjKNMTgvBZJ56_Hz5KExS8"
 
 bot = telebot.TeleBot(TOKEN)
 
+@bot.message_handler(commands=["start"])
+def saludar(mensaje):
+    bot.reply_to(mensaje, "Hola, ¿en qué te puedo ayudar?")
+
+
+# CUANDO EJECUTE COMANDO /HELP, DEVOLVERA UN LISTADO DE LOS COMANDOS QUE PUEDE UTILIZAR CON EL BOT
+@bot.message_handler(commands= ["help"])
+def helpe(mensaje):
+    helper.helper(bot, mensaje)
+   
 articulosTienda = {} # Aqui almacenaremos los datos esta vacia para poder llenarla
 
 # Almacenamos los datos de las frutas y verduras en el diccionario de arriba
 @bot.message_handler(commands= ["Agregar"])
 def agregar(mensaje):
     funcionAgregar.agregarArticulo(bot, articulosTienda, mensaje)
-# Ejecuta y hablale al bot xD
-@bot.message_handler(commands=["start"])
-def saludar(mensaje):
-    bot.reply_to(mensaje, "Hola, ¿en qué te puedo ayudar?")
     
-@bot.message_handler(commands=["Hola"])
-def saludar(mensaje):
-    bot.reply_to(mensaje, "Hola, ¿en qué te puedo ayudar?")
+    
+    
+    
+    
+    
+    
+
+
+    
 
 @bot.message_handler(func = lambda m: True)
 def escucha_todo(mensaje):
-    bot.reply_to(mensaje, "Actualmente solo estoy funcionando con los comandos '/start y /hola'")
+    bot.reply_to(mensaje, """No reconozco ese mensaje, solo estoy aqui para ayudarle con su tiendita. Si gusta puede escribir /help para saber de que formas le puedo ayudar.""")
 
 if __name__ == "__main__":
     bot.polling(none_stop=True)
