@@ -10,10 +10,11 @@ bot = telebot.TeleBot(TOKEN)
 articulosTienda = {} # Aqui almacenaremos los datos esta vacia para poder llenarla
 
 # Almacenamos los datos de las frutas y verduras en el diccionario de arriba
-@bot.message_handler(commands= Comando.Agregar)
+@bot.message_handler(commands= "agregar")
 def agregar(mensaje):
     funcionAgregar.agregarArticulo(bot, articulosTienda, mensaje)
-
+# Ejecuta y hablale al bot xD
+#/Agregar
 @bot.message_handler(commands=["start"])
 def saludar(mensaje):
     bot.reply_to(mensaje, "Hola, ¿en qué te puedo ayudar?")

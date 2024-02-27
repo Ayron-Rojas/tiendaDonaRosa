@@ -10,10 +10,11 @@ def agregarArticulo(bot, diccionario, mensaje):
         return
     
     # Como ya verificamos ahora si agregamos // Ojo que ahi son variables que le paso las palabras
-    codigo = palabras[0]
-    producto = palabras[1]
-    precio = palabras[2]
-    cantidad = palabras[3]
+    # Ejemplo el usuario envia (1 lechuga 5 1000)
+    codigo = palabras[0]  # 1
+    producto = palabras[1]  # lechuga
+    precio = palabras[2]  # 5
+    cantidad = palabras[3]  # 1000
     
     # Este es un constructor de articulos
     diccionario[codigo] = {"producto": producto, "precio": precio, "cantidad": cantidad}
