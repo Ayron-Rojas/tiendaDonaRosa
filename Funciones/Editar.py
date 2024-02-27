@@ -1,6 +1,6 @@
 import telebot
 
-def editarProducto(bot, listaArticulos, mensaje):
+def editarArticulo(bot, listaArticulos, mensaje):
     palabras = mensaje.text.split()[1:]
     
     if len(palabras) != 4:
@@ -12,9 +12,9 @@ def editarProducto(bot, listaArticulos, mensaje):
         bot.reply_to(mensaje, "El articulo especificado no esta en la lista.")
         return
     
-    producto = palabras[1]
+    articulo = palabras[1]
     precio = float(palabras[2])
     cantidad = int(palabras[3])
     
-    listaArticulos[codigo] = {'producto': producto, 'precio': precio, 'cantidad': cantidad}
-    bot.reply_to(mensaje, f"Articulo editado: {producto}")
+    listaArticulos[codigo] = {'articulo': articulo, 'precio': precio, 'cantidad': cantidad}
+    bot.reply_to(mensaje, f"Articulo editado: {articulo}")

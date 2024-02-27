@@ -1,6 +1,6 @@
 import telebot
-import Funciones.funcionAgregar as funcionAgregar
-import Funciones.help as helper
+import Funciones.funcionAgregar as Agregar
+import Funciones.help as Ayuda
 import Funciones.listar as Listar
 import Funciones.Editar as Editar
 
@@ -15,7 +15,7 @@ def saludar(mensaje):
 # CUANDO EJECUTE COMANDO /HELP, DEVOLVERA UN LISTADO DE LOS COMANDOS QUE PUEDE UTILIZAR CON EL BOT
 @bot.message_handler(commands= ["help"])
 def helpe(mensaje):
-    helper.helper(bot, mensaje)
+    Ayuda.helper(bot, mensaje)
    
 articulosTienda = {} # Aqui almacenaremos los datos esta vacia para poder llenarla
 
@@ -26,13 +26,15 @@ def agregar(mensaje):
 # Almacenamos los datos de las frutas y verduras en el diccionario de arriba
 @bot.message_handler(commands= ["agregar"])
 def mostrar(mensaje):
-    funcionAgregar.agregarArticulo(bot, articulosTienda, mensaje)
+    Agregar.agregarArticulo(bot, articulosTienda, mensaje)
     
 @bot.message_handler(commands= ["editar"])    
 def editar(mensaje):
     Editar.editarProducto(bot, articulosTienda, mensaje)
     
-    
+@bot.message_handler(commands= ["eliminar"])    
+def editar(mensaje):
+    (bot, articulosTienda, mensaje)   
     
     
 
