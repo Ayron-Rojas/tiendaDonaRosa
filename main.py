@@ -1,5 +1,5 @@
 import telebot
-import funcionAgregar
+import Funciones.funcionAgregar as funcionAgregar
 from Comandos import Comando
 
 
