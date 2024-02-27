@@ -6,5 +6,5 @@ def listarProductos(bot: telebot, mensaje, articulos):
     else:
         respuesta = ""
         for codigo, datos in articulos.items():
-            respuesta += f"Codigo: {codigo}, Producto: ´{datos["producto"]}, Precio: {datos["precio"]}, Cantidad: {datos[cantidad]}\n"
+            respuesta += f"Codigo: {codigo}, Producto: ´{datos["producto"]}, Precio: {datos["precio"]}, Cantidad: {datos["cantidad"]}\n"
             bot.reply_to(mensaje, respuesta)

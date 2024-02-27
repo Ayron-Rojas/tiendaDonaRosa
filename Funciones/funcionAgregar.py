@@ -1,6 +1,6 @@
 import telebot
 
-def agregarArticulo(bot, diccionario, mensaje):
+def agregarArticulo(bot, articulos, mensaje):
     # Vamos a dividir el mensaje en en palabras para que en un solo mensaje envie codigo, producto, precio, cantidad
     palabras = mensaje.text.split()[1:]
     
@@ -17,5 +17,5 @@ def agregarArticulo(bot, diccionario, mensaje):
     cantidad = palabras[3]  # 1000
     
     # Este es un constructor de articulos
-    diccionario[codigo] = {"producto": producto, "precio": precio, "cantidad": cantidad}
+    articulos[codigo] = {"producto": producto, "precio": precio, "cantidad": cantidad}
     bot.reply_to(mensaje, f"Articulo agregado: {producto}")

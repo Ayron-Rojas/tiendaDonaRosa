@@ -2,6 +2,7 @@ import telebot
 import Funciones.funcionAgregar as funcionAgregar
 import Funciones.help as helper
 import Funciones.listar as Listar
+import Funciones.Editar as Editar
 
 TOKEN = "6826256087:AAHsXEr_yWAnZBjKNMTgvBZJ56_Hz5KExS8"
 
@@ -10,7 +11,6 @@ bot = telebot.TeleBot(TOKEN)
 @bot.message_handler(commands=["start"])
 def saludar(mensaje):
     bot.reply_to(mensaje, "Hola, ¿en qué te puedo ayudar?")
-
 
 # CUANDO EJECUTE COMANDO /HELP, DEVOLVERA UN LISTADO DE LOS COMANDOS QUE PUEDE UTILIZAR CON EL BOT
 @bot.message_handler(commands= ["help"])
@@ -28,8 +28,9 @@ def agregar(mensaje):
 def mostrar(mensaje):
     funcionAgregar.agregarArticulo(bot, articulosTienda, mensaje)
     
-    
-    
+@bot.message_handler(commands= ["editar"])    
+def editar(mensaje):
+    Editar.editarProducto(bot, articulosTienda, mensaje)
     
     
     
