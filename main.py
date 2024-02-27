@@ -3,6 +3,9 @@ import Funciones.funcionAgregar as Agregar
 import Funciones.help as Ayuda
 import Funciones.listar as Listar
 import Funciones.Editar as Editar
+import Actividades.verificarCantidades as VerificarCantidades
+import Actividades.obtenerCHAT_ID as CHAT_ID
+import time
 
 TOKEN = "6826256087:AAHsXEr_yWAnZBjKNMTgvBZJ56_Hz5KExS8"
 
@@ -12,7 +15,7 @@ bot = telebot.TeleBot(TOKEN)
 def saludar(mensaje):
     bot.reply_to(mensaje, "Hola, ¿en qué te puedo ayudar?")
 
-# CUANDO EJECUTE COMANDO /HELP, DEVOLVERA UN LISTADO DE LOS COMANDOS QUE PUEDE UTILIZAR CON EL BOT
+# Devuelve un mensaje de ayuda que contiene todos los comandos
 @bot.message_handler(commands= ["help"])
 def helpe(mensaje):
     Ayuda.helper(bot, mensaje)
@@ -36,14 +39,20 @@ def editar(mensaje):
 def editar(mensaje):
     (bot, articulosTienda, mensaje)   
     
+@bot.message_handler(commands=["verificar_cantidades"])
+def ejecutarActividadVerificarCantidades(mensaje):
+    chat_ID = CHAT_ID.obtenerCHAT_ID(TOKEN)
+    VerificarCantidades.verificar_cantidades(bot, articulosTienda, chat_ID)
     
-
-
-    
-
 @bot.message_handler(func = lambda m: True)
 def escucha_todo(mensaje):
     bot.reply_to(mensaje, """No reconozco ese mensaje, solo estoy aqui para ayudarle con su tiendita. Si gusta puede escribir /help para saber de que formas le puedo ayudar.""")
 
 if __name__ == "__main__":
     bot.polling(none_stop=True)
+
+while True:
+    chat_ID = CHAT_ID.obtenerCHAT_ID(TOKEN)
+    VerificarCantidades.verificar_cantidades(bot, articulosTienda, chat_ID)
+    time.sleep(3600)
+    
