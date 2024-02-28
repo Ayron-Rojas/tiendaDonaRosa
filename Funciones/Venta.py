@@ -20,14 +20,13 @@ def obtenerVenta(bot, lista, mensaje):
     consumirVenta = generarVenta(botTemp, listaTemp, articulo, venta)
     bot.reply_to(mensaje, consumirVenta)
 
-def generarVenta(bot, listaArticulos, articulo, venta):
-    nombre_articulo = articulo.lower()      # Lower lo que hace es normalizar o comprobar textos ignorando mayusculas y minuslas (tomate === Tomate || tomate === ToMaTe)
-    for articulo, datos in listaArticulos.items():
-        if nombre_articulo in listaArticulos:
-            if datos["cantidad"] >= venta:
-                listaArticulos[nombre_articulo]["cantidad"] -= venta
-                return f"Venta realizada: Se vendieron {venta} unidades de {nombre_articulo}."
+def generarVenta(bot, listaArticulos, enArticulo, venta):
+    for codigo, articulo in listaArticulos.items():
+        if articulo["articulo"].lower() == enArticulo.lower():
+            if articulo["cantidad"] >= venta:
+                articulo["cantidad"] -= venta
+                return f"Venta realizada: Se vendio {venta} de {articulo["articulo"]}."
             else:
-                return "Lo siento no tengo la cantidad necesaria para cubrir su venta."
+                return "Lo siento, no tengo la cantidad necesaria para cubrir su venta."
         else:
             return "Articulo no encontrado."
