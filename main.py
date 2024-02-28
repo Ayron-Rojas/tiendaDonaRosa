@@ -9,11 +9,27 @@ import Funciones.eliminar as Eliminar
 import Actividades.verificarCantidades as VerificarCantidades
 import Actividades.obtenerCHAT_ID as CHAT_ID
 import Funciones.Venta as Venta
+import Funciones.verificarUsuario as vrUs
 
 TOKEN = "6826256087:AAHsXEr_yWAnZBjKNMTgvBZJ56_Hz5KExS8"
 
+
+
 #Genero la conexion al bot y almaceno dicha conexion en una variable
 bot = telebot.TeleBot(TOKEN)
+
+logeado = False
+
+@bot.message_handler(commands=["login"])
+def verificarUsuario(mensaje):
+    if logeado == False:
+        comp = vrUs.autentificarUsuario(bot, mensaje)
+        if comp == True: 
+            logeado = True
+        else:
+            logeado = False
+    elif logeado == True:
+        logeado = False
 
 @bot.message_handler(commands=["start"])
 def saludar(mensaje):
@@ -28,20 +44,20 @@ articulosTienda = {} # Aqui almacenaremos los datos esta vacia para poder llenar
 
 @bot.message_handler(commands= ["ver"])
 def agregar(mensaje):
-    Listar.listarProductos(bot, mensaje, articulosTienda)
+    Listar.listarProductos(bot, mensaje, articulosTienda, logeado)
 
 # Almacenamos los datos de las frutas y verduras en el diccionario de arriba
 @bot.message_handler(commands= ["agregar"])
 def mostrar(mensaje):
-    Agregar.agregarArticulo(bot, articulosTienda, mensaje)
+    Agregar.agregarArticulo(bot, articulosTienda, mensaje, logeado)
     
 @bot.message_handler(commands= ["editar"])    
 def editar(mensaje):
-    Editar.editarArticulo(bot, articulosTienda, mensaje)
+    Editar.editarArticulo(bot, articulosTienda, mensaje, logeado)
     
 @bot.message_handler(commands= ["eliminar"])    
 def editar(mensaje):
-    Eliminar.eliminarArticulo(bot, articulosTienda, mensaje)
+    Eliminar.eliminarArticulo(bot, articulosTienda, mensaje, logeado)
     
 @bot.message_handler(commands=["verificar_cantidades"])
 def ejecutarActividadVerificarCantidades(mensaje):
@@ -50,7 +66,7 @@ def ejecutarActividadVerificarCantidades(mensaje):
 
 @bot.message_handler(commands=["venta"])
 def productoVendido(mensaje):
-    Venta.obtenerVenta(bot, articulosTienda, mensaje)
+    Venta.obtenerVenta(bot, articulosTienda, mensaje, logeado)
     
 @bot.message_handler(func = lambda m: True)
 def escucha_todo(mensaje):
@@ -63,4 +79,4 @@ while True:
     chat_ID = CHAT_ID.obtenerCHAT_ID(TOKEN)
     VerificarCantidades.verificar_cantidades(bot, articulosTienda, chat_ID)
     time.sleep(3600)
-    
+
