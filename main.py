@@ -22,6 +22,7 @@ logeado = False
 
 @bot.message_handler(commands=["login"])
 def verificarUsuario(mensaje):
+    global logeado
     if logeado == False:
         comp = vrUs.autentificarUsuario(bot, mensaje)
         if comp == True: 
@@ -30,6 +31,7 @@ def verificarUsuario(mensaje):
             logeado = False
     elif logeado == True:
         logeado = False
+        bot.reply_to(mensaje, "Cerraste sesion.")
 
 @bot.message_handler(commands=["start"])
 def saludar(mensaje):
