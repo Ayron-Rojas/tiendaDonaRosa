@@ -23,8 +23,8 @@ def obtenerVenta(bot, lista, mensaje):
 def generarVenta(bot, listaArticulos, enArticulo, venta):
     for codigo, articulo in listaArticulos.items():
         if articulo["articulo"].lower() == enArticulo.lower():
-            if articulo["cantidad"] >= venta:
-                articulo["cantidad"] -= venta
+            if int(articulo["cantidad"]) >= venta:
+                articulo["cantidad"] = int(articulo["cantidad"]) - venta
                 return f"Venta realizada: Se vendio {venta} de {articulo["articulo"]}."
             else:
                 return "Lo siento, no tengo la cantidad necesaria para cubrir su venta."
