@@ -50,7 +50,7 @@ def ejecutarActividadVerificarCantidades(mensaje):
 
 @bot.message_handler(commands=["venta"])
 def productoVendido(mensaje):
-    Venta.generarVenta(bot, articulosTienda, mensaje)
+    Venta.obtenerVenta(bot, articulosTienda, mensaje)
     
 @bot.message_handler(func = lambda m: True)
 def escucha_todo(mensaje):
