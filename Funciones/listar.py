@@ -7,4 +7,4 @@ def listarProductos(bot, mensaje, articulos):
         respuesta = ""
         for codigo, datos in articulos.items():
             respuesta += f"Codigo: {codigo}, Articulo: ´{datos["articulo"]}, Precio: {datos["precio"]}, Cantidad: {datos["cantidad"]}\n"
-            bot.reply_to(mensaje, respuesta)
+        bot.reply_to(mensaje, respuesta)
