@@ -28,7 +28,7 @@ def generarVenta(bot, listaArticulos, enArticulo, venta):
         if articulo["articulo"].lower() == enArticulo.lower():
             if int(articulo["cantidad"]) >= venta:
                 articulo["cantidad"] = int(articulo["cantidad"]) - venta
-                return f"Venta realizada: Se vendio {venta} de {articulo["articulo"]}."
+                return f"Venta realizada: Se vendió {venta} de {articulo['articulo']}."
             else:
                 return "Lo siento, no tengo la cantidad necesaria para cubrir su venta."
         else:

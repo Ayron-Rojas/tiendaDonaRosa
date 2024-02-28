@@ -1,6 +1,5 @@
 import telebot
 import time
-from flask import Flask, request
 
 import Funciones.funcionAgregar as Agregar
 import Funciones.help as Ayuda
@@ -13,8 +12,6 @@ import Funciones.Venta as Venta
 import Funciones.verificarUsuario as vrUs
 
 TOKEN = "6826256087:AAHsXEr_yWAnZBjKNMTgvBZJ56_Hz5KExS8"
-
-
 
 #Genero la conexion al bot y almaceno dicha conexion en una variable
 bot = telebot.TeleBot(TOKEN)
@@ -64,7 +61,7 @@ def editar(mensaje):
     
 @bot.message_handler(commands=["verificar_cantidades"])
 def ejecutarActividadVerificarCantidades(mensaje):
-    chat_ID = CHAT_ID.obtenerCHAT_ID(TOKEN)
+    chat_ID = CHAT_ID.obtener_chat_id(TOKEN)
     VerificarCantidades.verificar_cantidades(bot, articulosTienda, chat_ID)
 
 @bot.message_handler(commands=["venta"])
@@ -75,23 +72,10 @@ def productoVendido(mensaje):
 def escucha_todo(mensaje):
     bot.reply_to(mensaje, """No reconozco ese mensaje, solo estoy aqui para ayudarle con su tiendita. Si gusta puede escribir /help para saber de que formas le puedo ayudar.""")
 
-app = Flask(__name__)
-
-@app.route("/enviar_mensaje", methods=["POST"])
-def enviarMensaje():
-    mensaje = request.form["mensaje"]
-    chat_ID = CHAT_ID.obtenerCHAT_ID(TOKEN)
-    bot.send_message(chat_ID, mensaje)
-    
-    return "Mensaje enviado al bot" + mensaje
-
 if __name__ == "__main__":
-    bot.polling(none_stop=True)
-    app.run(debug=True)
-    
+    bot.polling(none_stop=True)    
 
 while True:
-    chat_ID = CHAT_ID.obtenerCHAT_ID(TOKEN)
+    chat_ID = CHAT_ID.obtener_chat_id(TOKEN)
     VerificarCantidades.verificar_cantidades(bot, articulosTienda, chat_ID)
     time.sleep(3600)
-
