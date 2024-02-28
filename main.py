@@ -1,5 +1,6 @@
 import telebot
 import time
+from flask import Flask, request
 
 import Funciones.funcionAgregar as Agregar
 import Funciones.help as Ayuda
@@ -74,8 +75,20 @@ def productoVendido(mensaje):
 def escucha_todo(mensaje):
     bot.reply_to(mensaje, """No reconozco ese mensaje, solo estoy aqui para ayudarle con su tiendita. Si gusta puede escribir /help para saber de que formas le puedo ayudar.""")
 
+app = Flask(__name__)
+
+@app.route("/enviar_mensaje", methods=["POST"])
+def enviarMensaje():
+    mensaje = request.form["mensaje"]
+    chat_ID = CHAT_ID.obtenerCHAT_ID(TOKEN)
+    bot.send_message(chat_ID, mensaje)
+    
+    return "Mensaje enviado al bot" + mensaje
+
 if __name__ == "__main__":
     bot.polling(none_stop=True)
+    app.run(debug=True)
+    
 
 while True:
     chat_ID = CHAT_ID.obtenerCHAT_ID(TOKEN)
