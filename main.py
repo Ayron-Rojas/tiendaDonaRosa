@@ -1,4 +1,6 @@
 import telebot
+import time
+
 import Funciones.funcionAgregar as Agregar
 import Funciones.help as Ayuda
 import Funciones.listar as Listar
@@ -6,10 +8,11 @@ import Funciones.Editar as Editar
 import Funciones.eliminar as Eliminar
 import Actividades.verificarCantidades as VerificarCantidades
 import Actividades.obtenerCHAT_ID as CHAT_ID
-import time
+import Funciones.Venta as Venta
 
 TOKEN = "6826256087:AAHsXEr_yWAnZBjKNMTgvBZJ56_Hz5KExS8"
 
+#Genero la conexion al bot y almaceno dicha conexion en una variable
 bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=["start"])
@@ -44,6 +47,10 @@ def editar(mensaje):
 def ejecutarActividadVerificarCantidades(mensaje):
     chat_ID = CHAT_ID.obtenerCHAT_ID(TOKEN)
     VerificarCantidades.verificar_cantidades(bot, articulosTienda, chat_ID)
+
+@bot.message_handler(commands=["venta"])
+def productoVendido(mensaje):
+    Venta.generarVenta(bot, articulosTienda, mensaje)
     
 @bot.message_handler(func = lambda m: True)
 def escucha_todo(mensaje):
